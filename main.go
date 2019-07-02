@@ -39,6 +39,7 @@ func (app *App) printOpenMergeRequests() {
     rOpts := &gitlab.ListMergeRequestsOptions{
         State: gitlab.String("opened"),
         Scope: gitlab.String("all"),
+        WIP: gitlab.String("no"),
     }
     mrs, _, err := app.client.MergeRequests.ListMergeRequests(rOpts)
     if err != nil {
