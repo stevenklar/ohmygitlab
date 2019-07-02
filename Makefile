@@ -6,3 +6,6 @@ run:
 
 clean:
 	go mod tidy && go get
+
+install:
+	go install
