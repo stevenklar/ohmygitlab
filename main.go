@@ -51,11 +51,17 @@ func (app *App) printOpenMergeRequests() {
     spacer()
 
     subheadline := color.New(color.FgGreen)
+    author := color.New(color.FgCyan)
     info := color.New(color.FgWhite)
     for _, mr := range mrs {
         subheadline.Printf(
             "\n%s\n",
             mr.Title,
+        )
+
+        author.Printf(
+            "\tby %s\n",
+            mr.Author.Username,
         )
 
         info.Printf(
