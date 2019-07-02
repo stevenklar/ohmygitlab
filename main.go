@@ -6,6 +6,7 @@ import (
 
     "github.com/xanzy/go-gitlab"
     "github.com/spf13/viper"
+    "github.com/fatih/color"
 )
 
 type App struct {
@@ -15,6 +16,7 @@ type App struct {
 func main() {
     // configuration
     viper.AddConfigPath(".")
+    viper.AddConfigPath("$HOME/.ohmygitlab")
     viper.SetConfigName("config")
     viper.SetConfigType("yaml") 
     err := viper.ReadInConfig()
@@ -44,24 +46,31 @@ func (app *App) printOpenMergeRequests() {
     }
 
     spacer()
-    fmt.Printf("\tOpen Merge Requests (%d)\n", len(mrs))
+    headline := color.New(color.FgYellow, color.Bold)
+    headline.Printf("Open Merge Requests (%d)\n", len(mrs))
     spacer()
 
+    subheadline := color.New(color.FgGreen)
+    info := color.New(color.FgWhite)
     for _, mr := range mrs {
-        fmt.Printf(
-            "%s\n\t> %s\n",
+        subheadline.Printf(
+            "\n%s\n",
             mr.Title,
-            mr.WebURL,
         )
 
-        fmt.Printf(
-            "\t# %s => %s\n\n",
+        info.Printf(
+            "\tMerge %s into %s\n",
             mr.SourceBranch,
             mr.TargetBranch,
+        )
+
+        info.Printf(
+            "\t%s\n",
+            mr.WebURL,
         )
     }
 }
 
 func spacer() {
-    fmt.Println("==========================================")
+    color.White("==========================================")
 }
