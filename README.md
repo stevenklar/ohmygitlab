@@ -18,4 +18,4 @@ Enter your gitlab api url and personal access token.
 
 ## Use
 
-> ./ohmygitlab
+> ./bin/ohmygitlab
